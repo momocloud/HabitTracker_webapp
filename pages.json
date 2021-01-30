@@ -1,0 +1,58 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/home/home",
+			"style": {
+				"navigationStyle":"custom"
+			}
+		}
+	    ,{
+            "path" : "pages/setting/setting",
+            "style" : {
+				"navigationStyle":"custom"
+            }          
+        }
+        ,{
+            "path" : "pages/report/report",
+            "style" :                                                                                    
+            {
+				"navigationStyle":"custom"
+            }
+        }
+    ],
+	
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#f7f7f7",
+		"backgroundColor": "#F8F8F8"
+	},
+	
+	"tabBar": {
+		"fontSize":"20rpx",
+		"backgroundColor":"#f0f0f0",
+		"color":"#9d9d9d",
+		"selectedColor":"#585858",
+		"borderStyle":"black",
+		"list": [
+			{
+				"pagePath": "pages/home/home",
+				"text": "Home",
+				"iconPath":"static/home_false.svg",
+				"selectedIconPath":"static/home_true.svg"
+			},
+			{
+				"pagePath": "pages/report/report",
+				"text": "Report",
+				"iconPath":"static/repoet_false.svg",
+				"selectedIconPath":"static/report_true.svg"
+			},
+			{
+				"pagePath": "pages/setting/setting",
+				"text": "Settings",
+				"iconPath":"static/about_false.svg",
+				"selectedIconPath":"static/about_true.svg"
+			}
+		]
+	}
+}
