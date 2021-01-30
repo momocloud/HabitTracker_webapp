@@ -30,8 +30,10 @@
 						<image class=finishImg src="../../static/finish.svg"></image>
 					</view>
 			        <template v-slot:right>
-			            <view><text>编辑</text></view>
-						<view><text>删除</text></view>
+						<view style="flex-direction: column; width: 150rpx; padding-top: 20%;">
+							<image src="../../static/edit.svg" class=cardBtn></image>
+							<image src="../../static/delete.svg" class=cardBtn @click="deleteCard(index)"></image>
+						</view>
 			        </template>
 			    </uni-swipe-action-item>
 			</uni-swipe-action>
@@ -74,6 +76,10 @@
 			},
 			addNewAct() {
 				console.log('按下添加按钮');
+			},
+			deleteCard(index) {
+				console.log('按下删除按钮');
+				console.log(index)
 			}
 		}
 	}
@@ -160,5 +166,10 @@
 		margin-left: 70%;
 		width: 50px;
 		height: 34px;
+	}
+	
+	.cardBtn {
+		 height: 120rpx; 
+		 width: 120rpx;
 	}
 </style>
