@@ -68,19 +68,39 @@
 		},
 		
 		methods: {
-			        moveHandle(){
-			            return;
-			            },
+			moveHandle() { return; },
+			
 			tagChange(mes) {
 				this.currentTag = mes.newVal;
 			},
+			
 			addNewAct() {
 				console.log('按下添加按钮');
+				//待添加
 			},
+			
+			//按下删除时的动作
 			deleteCard(index) {
 				console.log('按下删除按钮');
-				console.log(index)
+				let deletedTag = this.itemList[index].tag;
+				this.itemList.splice(index, 1);
+				let judgeExist = false;
+				for (let index = 0; index < this.itemList.length; index++) {
+					if (this.itemList[index].tag == deletedTag) {
+						judgeExist = true;
+						break;
+					}
+				}
+				if (!judgeExist) {
+					for (let index = 0; index < this.tagList.length; index++) {
+						if (this.tagList[index] == deletedTag) {
+							this.tagList.splice(index, 1);
+							break;
+						}
+					}
+				}
 			}
+			
 		}
 	}
 </script>
