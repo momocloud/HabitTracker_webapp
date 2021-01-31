@@ -12,11 +12,11 @@ uni-page.animation-before2 {
 }
 
 uni-page.animation-leave {
-	transition: all .3s ease;
+	transition: all .1s ease;
 }
 
 uni-page.animation-enter {
-	transition: all .3s ease;
+	transition: all .1s ease;
 }
 
 uni-page.animation-show {
