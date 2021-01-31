@@ -1,7 +1,9 @@
 <script>
+	import pageAnimation from './components/page-animation'
 	export default {
+		mixins: [pageAnimation],
 		onLaunch: function() {
-			console.log('App Launch')
+		    console.log('App Launch')
 		},
 		onShow: function() {
 			console.log('App Show')

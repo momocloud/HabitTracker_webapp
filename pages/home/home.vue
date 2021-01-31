@@ -111,6 +111,11 @@
 			addNewAct() {
 				console.log('按下添加按钮');
 				//待添加
+				uni.navigateTo({
+					url: '../add/add',
+					animationType:'pop-in',
+					animationDuration: 200
+				})
 			},
 			
 			//按下删除时的动作

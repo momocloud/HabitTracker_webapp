@@ -19,6 +19,14 @@
 				"navigationStyle":"custom"
             }
         }
+        ,{
+            "path" : "pages/add/add",
+            "style" :                                                                                    
+            {
+				"navigationStyle":"custom"
+            }
+            
+        }
     ],
 	
 	"globalStyle": {
