@@ -53,18 +53,52 @@
 			return {
 				windowH: undefined,
 				currentTag: 'ALL',
-				tagList: ['ALL', 'EXERCISE', 'STUDY'],
+				tagList: ['ALL'],
 				cycleList: ['day', 'week', 'month'],
-				itemList: [
-					{name: 'RUN', tag: 'EXERCISE', num: 2, unit: 'km', cycle: 0, perc: 0}, 
-					{name: 'READ', tag: 'STUDY', num: 10, unit: 'pages', cycle: 1, perc: 30}, 
-					{name: 'SWIM', tag: 'EXERCISE', num: 2, unit: 'times', cycle: 2, perc: 50},
-				],
+				itemList: [],
 			}
 		},
 		
 		onLoad() {
+			//获取页面高度
 			this.windowH = uni.getSystemInfoSync().windowHeight;
+			
+			//判断存储数据是否合法
+			let needWrite = false;
+			let dataSaved = uni.getStorageSync('data');
+			if (typeof(dataSaved[0]) != 'null' && typeof(dataSaved[0]) != 'undefined') {
+				for (let index = 0; index < dataSaved.length; index++) {
+					if (typeof(dataSaved[index].name) != 'string' || typeof(dataSaved[index].tag) != 'string' || typeof(dataSaved[index].num) != 'number' || typeof(dataSaved[index].unit) != 'string' || typeof(dataSaved[index].cycle) != 'number' || typeof(dataSaved[index].perc) != 'number') {
+						needWrite = true;
+						break;
+					}
+				}
+			} else {
+				needWrite = true;
+			}
+			
+			//根据存储数据是否合法判断是否需要写入示例数据
+			let simpleValue = [{name: 'RUN', tag: 'EXERCISE', num: 2, unit: 'km', cycle: 0, perc: 0}, 
+					{name: 'READ', tag: 'STUDY', num: 10, unit: 'pages', cycle: 1, perc: 30}, 
+					{name: 'SWIM', tag: 'ALL', num: 2, unit: 'times', cycle: 2, perc: 50}];
+			if (needWrite) {
+				uni.setStorageSync('data', simpleValue);
+			}
+			
+			//将本地存储数据读入配置文件中
+			this.itemList = uni.getStorageSync('data');
+			
+			//根据本地数据初始化tagList
+			for ( let index = 0; index < this.itemList.length; index++) {
+				if (!this.tagList.includes(this.itemList[index].tag)) {
+					this.tagList.push(this.itemList[index].tag);
+				}
+			}
+		},
+		
+		onShow() {
+			//将本地存储数据读入配置文件中
+			this.itemList = uni.getStorageSync('data');
 		},
 		
 		methods: {
@@ -82,8 +116,12 @@
 			//按下删除时的动作
 			deleteCard(index) {
 				console.log('按下删除按钮');
+				
+				//将删除卡片的tag存储到临时变量，删除配置文件中itemList的数据
 				let deletedTag = this.itemList[index].tag;
 				this.itemList.splice(index, 1);
+				
+				//判断配置文件中itemList的其他数据是否还有这个tag
 				let judgeExist = false;
 				for (let index = 0; index < this.itemList.length; index++) {
 					if (this.itemList[index].tag == deletedTag) {
@@ -91,7 +129,9 @@
 						break;
 					}
 				}
-				if (!judgeExist) {
+				
+				//如果不是ALL或者还有其它项目使用这个tag，就删除tagList中的这个tag
+				if (!judgeExist && deletedTag != 'ALL') {
 					for (let index = 0; index < this.tagList.length; index++) {
 						if (this.tagList[index] == deletedTag) {
 							this.tagList.splice(index, 1);
@@ -99,6 +139,9 @@
 						}
 					}
 				}
+				
+				//将配置文件中的dataList写入存储内
+				uni.setStorageSync('data', this.itemList);
 			}
 			
 		}
