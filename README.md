@@ -9,3 +9,5 @@
 [下拉列表 - DCloud 插件市场](https://ext.dcloud.net.cn/plugin?id=518)
 
 [SwipeAction 滑动操作 - DCloud 插件市场](https://ext.dcloud.net.cn/plugin?id=181)
+
+[路由动画 page-animation升级版 - DCloud 插件市场](https://ext.dcloud.net.cn/plugin?id=1265)
