@@ -237,7 +237,9 @@
 	}
 	
 	.cardBtn {
-		 height: 120rpx; 
-		 width: 120rpx;
+		 height: 45%; 
+		 width: 55%;
+		 margin-top: 2%;
+		 margin-left: %;
 	}
 </style>

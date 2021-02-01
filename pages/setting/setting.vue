@@ -72,13 +72,7 @@
 	.title {
 		  padding-top: 22rpx;
 		  text-align: center;
-		  font-family: NotoSans;
 		  font-size: 24px;
-		  font-weight: normal;
-		  font-stretch: normal;
-		  font-style: normal;
-		  line-height: normal;
-		  letter-spacing: normal;
 		  color: #000000;
 	}
 	
@@ -86,13 +80,7 @@
 		  width: 100rpx;
 		  height: 25rpx;
 		  margin-left: 20rpx;
-		  font-family: NotoSans;
 		  font-size: 12px;
-		  font-weight: normal;
-		  font-stretch: normal;
-		  font-style: normal;
-		  line-height: normal;
-		  letter-spacing: normal;
 		  text-align: left;
 		  color: #818181;
 	}
@@ -108,12 +96,6 @@
 		margin-left: 20rpx;
 		padding-top: 21rpx;
 		font-size: 20px;
-		font-weight: normal;
-		font-stretch: normal;
-		font-style: normal;
-		line-height: normal;
-		letter-spacing: normal;
-		text-align: left;
 		color: #000000;
 	}
 	
@@ -122,12 +104,6 @@
 		margin-left: 55%;
 		padding-top: 21rpx;
 		font-size: 20px;
-		font-weight: normal;
-		font-stretch: normal;
-		font-style: normal;
-		line-height: normal;
-		letter-spacing: normal;
-		text-align: left;
 		color: #000000;
 	}
 	
@@ -135,11 +111,6 @@
 		width: 100%;
 		padding-top: 21rpx;
 		font-size: 20px;
-		font-weight: normal;
-		font-stretch: normal;
-		font-style: normal;
-		line-height: normal;
-		letter-spacing: normal;
 		text-align: center;
 		color: #000000;
 	}
