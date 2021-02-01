@@ -14,6 +14,8 @@
 			<view class="setLft">Start Data:</view>
 			
 		</view>
+		
+		<view>{{nameValue}}</view>
 	</view>
 </template>
 
@@ -47,7 +49,7 @@
 			},
 			
 			//键入名字时将数据保存到配置文件
-			onNameInput(e) {
+		onNameInput(e) {
 				this.nameValue = e.target.value;
 			}
 		},

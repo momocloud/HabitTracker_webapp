@@ -27,27 +27,35 @@
 						<view class=cardDes>{{item.num}} {{item.unit}} per {{cycleList[item.cycle]}}</view>
 						<view class=cardPerc>{{item.perc}}%</view>
 						<view class=cardTag>{{item.tag}}</view>
-						<image class=finishImg src="../../static/finish.svg"></image>
+						<image class=finishImg src="../../static/finish.svg" @click="finishCard(index)"></image>
 					</view>
 			        <template v-slot:right>
 						<view style="flex-direction: column; width: 150rpx; padding-top: 20%;">
-							<image src="../../static/edit.svg" class=cardBtn></image>
+							<image src="../../static/edit.svg" class=cardBtn ></image>
 							<image src="../../static/delete.svg" class=cardBtn @click="deleteCard(index)"></image>
 						</view>
 			        </template>
+					
 			    </uni-swipe-action-item>
 			</uni-swipe-action>
 
 		</view>
-		
+		<wyb-popup ref="popup" type="bottom" height="800" width="500" radius="10" :showCloseIcon="true">
+		    <view class="popup-content">
+		        {{finishCardNum}}
+		    </view>
+		</wyb-popup>
+
 
 	</view>
 </template>
 
 <script>
 	import xflSelect from '../../components/xfl-select/xfl-select.vue';
+	import wybPopup from '@/components/wyb-popup/wyb-popup.vue'
+	
 	export default {
-		components: {xflSelect},
+		components: {xflSelect, wybPopup},
 		
 		data() {
 			return {
@@ -56,6 +64,7 @@
 				tagList: ['ALL'],
 				cycleList: ['day', 'week', 'month'],
 				itemList: [],
+				finishCardNum: undefined,
 			}
 		},
 		
@@ -147,8 +156,12 @@
 				
 				//将配置文件中的dataList写入存储内
 				uni.setStorageSync('data', this.itemList);
-			}
+			},
 			
+			finishCard(index) {
+				this.finishCardNum = index;
+				this.$refs.popup.show();
+			}
 		}
 	}
 </script>
@@ -240,6 +253,5 @@
 		 height: 45%; 
 		 width: 55%;
 		 margin-top: 2%;
-		 margin-left: %;
 	}
 </style>
