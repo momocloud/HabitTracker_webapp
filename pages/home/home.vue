@@ -40,9 +40,17 @@
 			</uni-swipe-action>
 
 		</view>
+		
+		<!-- 下面是弹出的内容 -->
 		<wyb-popup ref="popup" type="bottom" height="800" width="500" radius="10" :showCloseIcon="true">
 		    <view class="popup-content">
-		        {{finishCardNum}}
+				<view style="text-align: center; font-size: 48px; padding-top: 10%;">FINISH TODAY!</view>
+				<view class="popTitle" v-if="itemList[finishCardNum] != undefined">{{itemList[finishCardNum].name}}</view>
+				<view style=" display: flex; justify-content: space-between; align-items: center;">
+					<input class="popInput" type="number" @input="finishNumInput"/>
+					<view style="text-align: center; font-size: 24px; margin-right: 17%; margin-top: 10%;">{{itemList[finishCardNum].unit}}</view>
+				</view>
+				<image src="../../static/finish.svg" class="popBtn"></image>
 		    </view>
 		</wyb-popup>
 
@@ -64,7 +72,8 @@
 				tagList: ['ALL'],
 				cycleList: ['day', 'week', 'month'],
 				itemList: [],
-				finishCardNum: undefined,
+				finishCardNum: 0,
+				finishItemNum: 0,
 			}
 		},
 		
@@ -161,7 +170,12 @@
 			finishCard(index) {
 				this.finishCardNum = index;
 				this.$refs.popup.show();
-			}
+			},
+			
+			finishNumInput(e) {
+				this.finishItemNum = undefined;
+				this.finishItemNum = Number(e.target.value);
+			},
 		}
 	}
 </script>
@@ -253,5 +267,36 @@
 		 height: 45%; 
 		 width: 55%;
 		 margin-top: 2%;
+	}
+	
+	.popTitle {
+		text-align: center; 
+		font-size: 24px; 
+		margin-top: 5%;
+		padding-top: 3%;
+		padding-bottom: 3%;
+		margin-left: 15%;
+		margin-right: 15%;
+		border-radius: 5px; 
+		background-color: rgba(196, 196, 196, 0.5);
+	}
+	
+	.popInput {
+		background-color: #c4c4c4;
+		font-size: 24px;
+		margin-top: 10%;
+		margin-left: 10%;
+		width: 40%;
+		border-radius: 27px;
+		text-align: center;
+		padding-top: 2%;
+		padding-bottom: 2%;
+	}
+	
+	.popBtn {
+		width: 30%;
+		height: 100px;
+		margin-left: 37%;
+		margin-top: 7%;
 	}
 </style>

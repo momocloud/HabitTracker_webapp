@@ -12,10 +12,55 @@
 		
 		<view class=itemBkg style="margin-top: 5%; display: flex;">
 			<view class="setLft">Start Data:</view>
-			
 		</view>
 		
-		<view>{{nameValue}}</view>
+		<view class=itemBkg style="margin-top: 5%; display: flex;">
+			<view class="setLft">End Data:</view>
+		</view>
+		
+		<view style="display: flex; justify-content: space-between; align-items: center; margin-top: 5%;">
+			<view class="itemBkgHalf" style="display: flex;">
+				<view class="setLft">Number: </view>
+				<input class="setRht" type="number" placeholder="0" />
+			</view>
+			<view class="itemBkgHalf" style="display: flex;">
+				<view class="setLft">Unit: </view>
+				<input class="setRht" placeholder="times"/>
+			</view>
+		</view>
+		
+		<view class=itemBkg style="margin-top: 5%; display: flex;">
+			<view class="setLft">Cycle:</view>
+			<view style="width: 25%; position: absolute; margin-left: 67.5%; padding-top: 7rpx;">
+				<xfl-select-white 
+					:list="unitList"
+					:clearable="false"
+					:showItemNum="5" 
+					:listShow="false"
+					:isCanInput="false"  
+					:style_Container="'height: 80rpx; font-size: 20px; '"
+					:placeholder = "'placeholder'"
+					:initValue="'day'"
+					:selectHideType="'hideAll'"
+				>
+				</xfl-select-white>
+			</view>
+		</view>
+		
+		<view class="itemBkg" style="margin-top: 5%; display: flex;">
+			<view class="setLft">Tag:</view>
+			<view class="setRht" style="margin-left: 40%;">
+				<input style="font-size: 20px;" placeholder="Tag"/>
+			</view>
+		</view>
+		
+		<view class="itemBkg" style="margin-top: 5%;">
+			<view class="setLft">Description:</view>
+			<view style="margin-top: 5%; background-color: white; padding-top: 2.5%; padding-bottom: 2.5%; padding-left: 40rpx;">
+				<input style="font-size: 20px;" placeholder="Description"/>
+			</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -25,7 +70,7 @@
 			return {
 				windowH: undefined,
 				nameValue: undefined,
-				
+				unitList: ['day', 'week', 'month'],
 			}
 		},
 		methods: {
@@ -89,17 +134,24 @@
 	}
 	
 	.setLft {
-		margin-left: 20rpx;
+		margin-left: 40rpx;
 		padding-top: 21rpx;
 		font-size: 20px;
 		color: #000000;
 	}
 	
 	.setRht {
-		position: absolute;
-		margin-left: 55%;
+		text-align: center;
 		padding-top: 21rpx;
+		padding-left: 10rpx;
+		padding-right: 10rpx;
 		font-size: 20px;
 		color: #000000;
+	}
+	
+	.itemBkgHalf {
+		height: 50px;
+		background-color: white;
+		width: 48%;
 	}
 </style>
