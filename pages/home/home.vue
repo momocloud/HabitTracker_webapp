@@ -42,7 +42,7 @@
 		</view>
 		
 		<!-- 下面是弹出的内容 -->
-		<wyb-popup ref="popup" type="bottom" height="800" width="500" radius="10" :showCloseIcon="true">
+		<wyb-popup ref="popup" type="bottom" height="800" width="500" radius="10" :showCloseIcon="true" v-if="itemList.length != 0">
 		    <view class="popup-content">
 				<view style="text-align: center; font-size: 48px; padding-top: 10%;">FINISH TODAY!</view>
 				<view class="popTitle" v-if="itemList[finishCardNum] != undefined">{{itemList[finishCardNum].name}}</view>
@@ -143,6 +143,7 @@
 				//将删除卡片的tag存储到临时变量，删除配置文件中itemList的数据
 				let deletedTag = this.itemList[index].tag;
 				this.itemList.splice(index, 1);
+				console.log(this.itemList.length)
 				
 				//判断配置文件中itemList的其他数据是否还有这个tag
 				let judgeExist = false;
@@ -153,6 +154,7 @@
 					}
 				}
 				
+
 				//如果不是ALL或者还有其它项目使用这个tag，就删除tagList中的这个tag
 				if (!judgeExist && deletedTag != 'ALL') {
 					for (let index = 0; index < this.tagList.length; index++) {
@@ -162,7 +164,7 @@
 						}
 					}
 				}
-				
+
 				//将配置文件中的dataList写入存储内
 				uni.setStorageSync('data', this.itemList);
 			},
