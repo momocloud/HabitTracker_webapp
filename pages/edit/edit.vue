@@ -13,8 +13,8 @@
 		<!-- Goal -->
 		<view class="tintText">Goal :</view>		
 		<view class=itemBkg style="margin-top: 5%; display: flex;">
-			<input placeholder="4" type="number" class="setIn" style="background-color: #c9c9c9; width: 20%; border-radius: 27px; text-align: center; margin-left: 2%;" />
-			<input placeholder="km" type="text" class="setIn" style="background-color: #c9c9c9; width: 25%; border-radius: 27px; text-align: center; margin-left: 5%;" />
+			<input :placeholder="item.num" type="number" class="setIn" style="background-color: #c9c9c9; width: 20%; border-radius: 27px; text-align: center; margin-left: 2%;" />
+			<input :placeholder="item.unit" type="text" class="setIn" style="background-color: #c9c9c9; width: 25%; border-radius: 27px; text-align: center; margin-left: 5%;" />
 			<view class="setIn" style="margin-left: 5%;">per</view>
 			<view style="width: 25%; position: absolute; margin-left: 70%; padding-top: 7rpx;">
 				<xfl-select-white 
@@ -25,7 +25,7 @@
 					:isCanInput="false"  
 					:style_Container="'height: 80rpx; font-size: 20px; '"
 					:placeholder = "'placeholder'"
-					:initValue="'day'"
+					:initValue="unitList[item.cycle]"
 					:selectHideType="'hideAll'"
 				>
 				</xfl-select-white>
@@ -62,7 +62,7 @@
 		<!-- Tag -->
 		<view class="tintText">Tag :</view>
 		<view class=itemBkg style="margin-top: 5%;">
-			<input style="text-align: center; font-size: 36rpx; padding-top: 3%;" placeholder="Tap to enter its tag!" @input="onTagInput" />
+			<input style="text-align: center; font-size: 36rpx; padding-top: 3%;" :placeholder="item.tag" @input="onTagInput" />
 		</view>
 		
 		<!-- Color -->
@@ -117,7 +117,6 @@
 			
 			//完成
 			addFindsh() {
-				console.log(this.nameValue);
 				uni.navigateBack({
 					delta: 1,
 					animationType:'pop-out',
