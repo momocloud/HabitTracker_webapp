@@ -27,6 +27,14 @@
             }
             
         }
+        ,{
+            "path" : "pages/edit/edit",
+            "style" :                                                                                    
+            {
+				"navigationStyle":"custom"
+            }
+            
+        }
     ],
 	
 	"globalStyle": {

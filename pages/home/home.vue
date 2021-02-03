@@ -31,7 +31,7 @@
 					</view>
 			        <template v-slot:right>
 						<view style="flex-direction: column; width: 150rpx; padding-top: 20%;">
-							<image src="../../static/edit.svg" class=cardBtn ></image>
+							<image src="../../static/edit.svg" class=cardBtn @click="editCard(index)"></image>
 							<image src="../../static/delete.svg" class=cardBtn @click="deleteCard(index)"></image>
 						</view>
 			        </template>
@@ -165,6 +165,15 @@
 				
 				//将配置文件中的dataList写入存储内
 				uni.setStorageSync('data', this.itemList);
+			},
+			
+			//按下编辑卡片时的动作
+			editCard(index) {
+				uni.navigateTo({
+					url: '../edit/edit?id=' + index,
+					animationType:'pop-in',
+					animationDuration: 200
+				})
 			},
 			
 			finishCard(index) {
