@@ -23,3 +23,5 @@
 [路由动画 page-animation升级版 - DCloud 插件市场](https://ext.dcloud.net.cn/plugin?id=1265)
 
 [Popup弹出框 - DCloud 插件市场](https://ext.dcloud.net.cn/plugin?id=2504)
+
+[7种类型时间选择器 - DCloud 插件市场](https://ext.dcloud.net.cn/plugin?id=2400)
