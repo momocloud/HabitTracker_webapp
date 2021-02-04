@@ -1,6 +1,6 @@
 <template>
 	<view style="display: flex; flex-direction: column;" @touchmove.stop.prevent="moveHandle">
-		<view class="navHome" style="height: 20%; width: 100%; background-color: #ffffff;">
+		<view class="navHome" style="height: 20%; width: 100%; background-color: #80d1e3;">
 			<view style="width: 40%;" class="tagSecBtn">
 				<xfl-select 
 					:list="tagList"
@@ -16,13 +16,13 @@
 				>
 				</xfl-select>
 			</view>
-			<image src="../../static/add.svg" mode="aspectFit" class="addBtnHome" @click="addNewAct"></image>
+			<image src="../../static/add.svg" mode="aspectFit" style="filter: invert(100%);" class="addBtnHome" @click="addNewAct"></image>
 		</view>
 		
 		<view style="background-color: #f0f0f0; margin-top: 0%; flex: 0 0 auto; overflow-y: auto;" :style="'height: ' + this.windowH * 0.895 + 'px'" @touchmove.stop = "">
 			<uni-swipe-action>
 			    <uni-swipe-action-item v-for="(item, index) in itemList" :key="index" v-show="(currentTag == 'ALL') ? true : (currentTag == item.tag)">
-			        <view class=cardBkg>
+			        <view class=cardBkg :style="'background: ' + itemList[index].color">
 						<view class=cardName>{{item.name}}</view>
 						<view class=cardDes>{{item.num}} {{item.unit}} per {{cycleList[item.cycle]}}</view>
 						<view class=cardPerc>{{item.perc}}%</view>
@@ -96,9 +96,9 @@
 			}
 			
 			//根据存储数据是否合法判断是否需要写入示例数据
-			let simpleValue = [{name: 'RUN', tag: 'EXERCISE', num: 2, unit: 'km', cycle: 0, perc: 0}, 
-					{name: 'READ', tag: 'STUDY', num: 10, unit: 'pages', cycle: 1, perc: 30}, 
-					{name: 'SWIM', tag: 'ALL', num: 2, unit: 'times', cycle: 2, perc: 50}];
+			let simpleValue = [{name: 'RUN', tag: 'EXERCISE', num: 2, unit: 'km', cycle: 0, perc: 0, color: '#fa8c0a', finish: [0,0,0,0,0,0,0]}, 
+					{name: 'READ', tag: 'STUDY', num: 10, unit: 'pages', cycle: 1, perc: 30, color: '#80d1e3', finish: [1,1,0,1,1,1,0]}, 
+					{name: 'SWIM', tag: 'ALL', num: 2, unit: 'times', cycle: 2, perc: 50, color: '#c2f175', finish: [1,1,1,1,0,0,0]}];
 			if (needWrite) {
 				uni.setStorageSync('data', simpleValue);
 			}
@@ -195,13 +195,12 @@
 	.navHome {
 		display: flex;
 		padding-bottom: 5%;
-		line-height: 20%;
 	}
 	
 	.tagSecBtn {
 		margin-top: 5%;
 		margin-left: 10%;
-		}
+	}
 	
 	
 	.addBtnHome {
@@ -209,7 +208,7 @@
 		height: 70rpx;
 		margin-top: 6%;
 		margin-left: 30%;
-		background-color: #c4c4c4;
+		background-color: #c16f47;
 		border-radius: 50%;
 		opacity:0.8;
 	}
@@ -261,7 +260,7 @@
 		padding: 3px 18px 3px 18px;
 		border-radius: 5px;
 		box-shadow: inset 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-		background-color: #9d9d9d;
+		background-color: #ffffff;
 		font-size: 12px;
 		text-align: center;
 	}

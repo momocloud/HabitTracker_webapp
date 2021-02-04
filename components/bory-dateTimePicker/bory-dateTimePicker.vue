@@ -24,10 +24,10 @@
 					<view class="item" v-for="(item,index) in days" :key="index">{{item}} Day</view>
 				</picker-view-column>
 				<picker-view-column data-id='hour' v-if='isShowHour'>
-					<view class="item" v-for="(item,index) in hours" :key="index">{{item}} Hour</view>
+					<view class="item" v-for="(item,index) in hours" :key="index">{{item}}</view>
 				</picker-view-column>
 				<picker-view-column data-id='minute' v-if='isShowMinute'>
-					<view class="item" v-for="(item,index) in minutes" :key="index">{{item}} Minute</view>
+					<view class="item" v-for="(item,index) in minutes" :key="index">{{item}}</view>
 				</picker-view-column>
 				<picker-view-column data-id='second' v-if='isShowSecond'>
 					<view class="item" v-for="(item,index) in seconds" :key="index">{{item}} Second</view>
@@ -69,7 +69,7 @@
 			},
 			toolBarTitle: {
 				type: String,
-				default: 'Choose your choice'
+				default: 'Choose remind time'
 			},
 			toolBarTitleClass: {
 				type: String,

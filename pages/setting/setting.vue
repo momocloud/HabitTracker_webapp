@@ -1,7 +1,7 @@
 <template>
 	<view style="background-color: #f0f0f0;" :style="'height: ' + this.windowH + 'px'">
-		<view style="background-color: white; height: 100rpx;">
-			<view class=title>SETTINGS</view>
+		<view style="background-color: #80d1e3; height: 100rpx;">
+			<view class=title style="color: white;">SETTINGS</view>
 		</view>
 		
 		<view class=litText style="margin-top: 50rpx;">General</view>

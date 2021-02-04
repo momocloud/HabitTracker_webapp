@@ -1,9 +1,9 @@
 <template>
 	<view style="background-color: #f0f0f0;" :style="'height: ' + this.windowH + 'px'">
-		<view style="background-color: white; height: 100rpx; display: flex;">
-			<image src='../../static/back.svg' class=titleBtn @click="backToHome"></image>
-			<view class=title>EDIT</view>
-			<image src='../../static/tick.svg' class=titleBtn style="margin-left: 78%;" @click="addFindsh"></image>
+		<view style="background-color: #80d1e3; height: 100rpx; display: flex;">
+			<image src='../../static/back.svg' style="filter: invert(100%);" class=titleBtn @click="backToHome"></image>
+			<view class=title style="color: white;">EDIT</view>
+			<image src='../../static/tick.svg' class=titleBtn style="margin-left: 78%; filter: invert(100%);" @click="addFindsh"></image>
 		</view>
 		
 		<view style="text-align: center; font-size: 36rpx; padding-top: 5%; color: #808080; font-size: 30px;">
@@ -13,8 +13,8 @@
 		<!-- Goal -->
 		<view class="tintText">Goal :</view>		
 		<view class=itemBkg style="margin-top: 5%; display: flex;">
-			<input :placeholder="item.num" type="number" class="setIn" style="background-color: #c9c9c9; width: 20%; border-radius: 27px; text-align: center; margin-left: 2%;" />
-			<input :placeholder="item.unit" type="text" class="setIn" style="background-color: #c9c9c9; width: 25%; border-radius: 27px; text-align: center; margin-left: 5%;" />
+			<input :placeholder="item.num" type="number" class="setIn" style="background-color: #ccedf4; width: 20%; border-radius: 27px; text-align: center; margin-left: 2%;" />
+			<input :placeholder="item.unit" type="text" class="setIn" style="background-color: #ccedf4; width: 25%; border-radius: 27px; text-align: center; margin-left: 5%;" />
 			<view class="setIn" style="margin-left: 5%;">per</view>
 			<view style="width: 25%; position: absolute; margin-left: 70%; padding-top: 7rpx;">
 				<xfl-select-white 
@@ -36,18 +36,18 @@
 		<view class="tintText">Reminder :</view>
 		<view class=itemBkg style="margin-top: 5%; display: flex;">
 			<view class="setIn" style="margin-left: 5%;">Don't remind me</view>
-			<switch @change="changeRe" style="margin-left: 30%; margin-top: 2%;" color="#c9c9c9"></switch>
+			<switch @change="changeRe" style="margin-left: 30%; margin-top: 2%;" color="#ccedf4"></switch>
 		</view>
 		<view class=itemBkg style="margin-top: 5%; display: flex;">
 			<view class="setIn" style="margin-left: 5%;">Remind me at</view>
 			<date-time-picker ref='date-time' type='hour-minute' @change='dateTimeChange'></date-time-picker>
-			<view class="setIn" style="margin-left: 2%; background-color: #c9c9c9; border-radius: 27px; width: 17%; text-align: center; margin-bottom: 2.5%;" @click="clickChangeTime">{{remindTime}}</view>
+			<view class="setIn" style="margin-left: 2%; background-color: #ccedf4; border-radius: 27px; width: 17%; text-align: center; margin-bottom: 2.5%; color: #808080; font-size: 21px;" @click="clickChangeTime">{{remindTime}}</view>
 			<view class="setIn" style="margin-left: 2%;">every</view>
-			<view style="width: 26%; position: absolute; margin-left: 73%; padding-top: 7rpx;">
+			<view style="width: 20%; position: absolute; margin-left: 77%; padding-top: 7rpx;">
 				<xfl-select-white 
 					:list="remindTimeList"
 					:clearable="false"
-					:showItemNum="8" 
+					:showItemNum="5" 
 					:listShow="false"
 					:isCanInput="false"  
 					:style_Container="'height: 80rpx; font-size: 20px; '"
@@ -210,8 +210,8 @@
 		width: 40px;
 		height: 40px;
 		border-radius: 50%;
-		margin-left: 3.5%;
-	    margin-right: 3.5%;
+		margin-left: 3%;
+	    margin-right: 3%;
 		margin-top: 2%;
 		margin-bottom: 2%;
 	}

@@ -60,7 +60,7 @@
 			{
 				"pagePath": "pages/report/report",
 				"text": "Report",
-				"iconPath":"static/repoet_false.svg",
+				"iconPath":"static/report_false.svg",
 				"selectedIconPath":"static/report_true.svg"
 			},
 			{
