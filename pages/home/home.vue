@@ -288,11 +288,11 @@
 		margin-left: 15%;
 		margin-right: 15%;
 		border-radius: 5px; 
-		background-color: rgba(196, 196, 196, 0.5);
+		background-color: #bfe8f1;
 	}
 	
 	.popInput {
-		background-color: #c4c4c4;
+		background-color: #bfe8f1;
 		font-size: 24px;
 		margin-top: 10%;
 		margin-left: 10%;

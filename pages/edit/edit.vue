@@ -27,9 +27,16 @@
 					:placeholder = "'placeholder'"
 					:initValue="unitList[item.cycle]"
 					:selectHideType="'hideAll'"
+					@change="cycleChange"
 				>
 				</xfl-select-white>
 			</view>
+		</view>
+		
+		<view class=itemBkg style="margin-top: 5%; display: flex;">
+			<view class="setIn" style="margin-left: 20%;">total</view>
+			<input placeholder="unlimited" type="number" class="setIn" style="background-color: #ccedf4; width: 30%; border-radius: 27px; text-align: center; margin-left: 2%;" />
+			<view class="setIn" style="margin-left: 5%;">{{cycleType}}</view>
 		</view>
 
 		<!-- Reminder -->
@@ -103,6 +110,7 @@
 				remindTimeList: ['day', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
 				itemList: undefined,
 				item: undefined,
+				cycleType: 'day',
 			}
 		},
 		methods: {
@@ -143,6 +151,10 @@
 			
 			onTagInput(e) {
 				console.log(e.target.value);
+			},
+			
+			cycleChange(e) {
+				this.cycleType = e.newVal;
 			}
 			
 		},
@@ -153,6 +165,7 @@
 			this.windowH = uni.getSystemInfoSync().windowHeight;
 			this.itemList = uni.getStorageSync('data');
 			this.item = this.itemList[parm.id];
+			this.cycleType = this.unitList[this.item.cycle];
 		},
 		
 
