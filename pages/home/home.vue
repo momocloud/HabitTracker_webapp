@@ -96,9 +96,9 @@
 			}
 			
 			//根据存储数据是否合法判断是否需要写入示例数据
-			let simpleValue = [{name: 'RUN', tag: 'EXERCISE', num: 2, unit: 'km', cycle: 0, perc: 0, color: '#fa8c0a', finish: [0,0,0,0,0,0,0]}, 
-					{name: 'READ', tag: 'STUDY', num: 10, unit: 'pages', cycle: 1, perc: 30, color: '#80d1e3', finish: [1,1,0,1,1,1,0]}, 
-					{name: 'SWIM', tag: 'ALL', num: 2, unit: 'times', cycle: 2, perc: 50, color: '#c2f175', finish: [1,1,1,1,0,0,0]}];
+			let simpleValue = [{name: 'RUN', tag: 'EXERCISE', num: 2, unit: 'km', cycle: 0, perc: 0, color: '#f07c82', finish: [0,0,0,0,0,0,0]}, 
+					{name: 'READ', tag: 'STUDY', num: 10, unit: 'pages', cycle: 1, perc: 30, color: '#22a2c3', finish: [1,1,0,1,1,1,0]}, 
+					{name: 'SWIM', tag: 'ALL', num: 2, unit: 'times', cycle: 2, perc: 50, color: '#b3c936', finish: [1,1,1,1,0,0,0]}];
 			if (needWrite) {
 				uni.setStorageSync('data', simpleValue);
 			}
