@@ -74,12 +74,16 @@
 				itemList: [],
 				finishCardNum: 0,
 				finishItemNum: 0,
+				todayData: undefined,
 			}
 		},
 		
 		onLoad() {
 			//获取页面高度
 			this.windowH = uni.getSystemInfoSync().windowHeight;
+			
+			//获取今天日期
+			this.todayData = new Date();
 			
 			//判断存储数据是否合法
 			let needWrite = false;
@@ -96,9 +100,9 @@
 			}
 			
 			//根据存储数据是否合法判断是否需要写入示例数据
-			let simpleValue = [{name: 'RUN', tag: 'EXERCISE', num: 2, unit: 'km', cycle: 0, perc: 0, finished: 0, color: '#f07c82', finish: [0,0,0,0,0,0,0]}, 
-					{name: 'READ', tag: 'STUDY', num: 10, unit: 'pages', cycle: 1, perc: 30, finished: 3, color: '#22a2c3', finish: [1,1,0,1,1,1,0]}, 
-					{name: 'SWIM', tag: 'ALL', num: 2, unit: 'times', cycle: 2, perc: 50, finished: 1, color: '#b3c936', finish: [1,1,1,1,0,0,0]}];
+			let simpleValue = [{name: 'RUN', tag: 'EXERCISE', num: 2, unit: 'km', cycle: 0, perc: 0, finished: 0, color: '#f07c82', finish: [0,0,0,0,0,0,0], createDate: new Date(this.todayData.getTime() - 5*24*60*60*1000)}, 
+					{name: 'READ', tag: 'STUDY', num: 10, unit: 'pages', cycle: 1, perc: 30, finished: 3, color: '#22a2c3', finish: [1,1,0,1,1,1,0], createDate: new Date(this.todayData.getTime() - 10*24*60*60*1000)}, 
+					{name: 'SWIM', tag: 'ALL', num: 2, unit: 'times', cycle: 2, perc: 50, finished: 1, color: '#b3c936', finish: [1,1,1,1,0,0,0], createDate: new Date(this.todayData.getTime() - 15*24*60*60*1000)}];
 			if (needWrite) {
 				uni.setStorageSync('data', simpleValue);
 				console.log("WRITE SIMPLE DATA!")

@@ -120,7 +120,7 @@
 				remindTimeList: ['day', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
 				
 				itemList: [],
-				item: {name: undefined, tag: undefined, num: undefined, unit: undefined, cycle: undefined, perc: 0, finished: 0, color: undefined, finish: [0,0,0,0,0,0,0]},
+				item: {name: undefined, tag: undefined, num: undefined, unit: undefined, cycle: undefined, perc: 0, finished: 0, color: undefined, finish: [0,0,0,0,0,0,0], createDate: new Date()},
 			}
 		},
 		methods: {
