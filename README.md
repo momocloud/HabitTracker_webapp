@@ -1,6 +1,6 @@
 # ID2216 Assignment - Habit Tracker (Web App)
 
-A prototype of a Web App based on uni-app. 
+A Web App based on uni-app. 
 
 For the Chinese README, please see README_zh_cn.md.
 

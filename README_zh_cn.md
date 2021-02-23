@@ -1,6 +1,6 @@
 # ID2216 Assignment - Habit Tracker (Web App)
 
-一个基于uni-app制作的Web App的原型。
+一个基于uni-app制作的Web App。
 
 
 
