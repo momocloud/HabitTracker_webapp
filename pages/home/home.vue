@@ -108,6 +108,7 @@
 			this.itemList = uni.getStorageSync('data');
 			
 			//根据本地数据初始化tagList
+			this.tagList = [];
 			for ( let index = 0; index < this.itemList.length; index++) {
 				if (!this.tagList.includes(this.itemList[index].tag)) {
 					this.tagList.push(this.itemList[index].tag);
