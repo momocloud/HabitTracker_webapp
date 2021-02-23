@@ -50,7 +50,7 @@
 					<input class="popInput" type="number" @input="finishNumInput"/>
 					<view style="text-align: center; font-size: 24px; margin-right: 17%; margin-top: 10%;">{{itemList[finishCardNum].unit}}</view>
 				</view>
-				<image src="../../static/finish.svg" class="popBtn"></image>
+				<image src="../../static/finish.svg" class="popBtn" @click="finishCardComplete"></image>
 		    </view>
 		</wyb-popup>
 
@@ -86,7 +86,7 @@
 			let dataSaved = uni.getStorageSync('data');
 			if (typeof(dataSaved[0]) != 'null' && typeof(dataSaved[0]) != 'undefined') {
 				for (let index = 0; index < dataSaved.length; index++) {
-					if (typeof(dataSaved[index].name) != 'string' || typeof(dataSaved[index].tag) != 'string' || typeof(dataSaved[index].num) != 'number' || typeof(dataSaved[index].unit) != 'string' || typeof(dataSaved[index].cycle) != 'number' || typeof(dataSaved[index].perc) != 'number') {
+					if (typeof(dataSaved[index].name) != 'string' || typeof(dataSaved[index].tag) != 'string' || typeof(dataSaved[index].num) != 'number' || typeof(dataSaved[index].unit) != 'string' || typeof(dataSaved[index].cycle) != 'number') {
 						needWrite = true;
 						break;
 					}
@@ -96,11 +96,12 @@
 			}
 			
 			//根据存储数据是否合法判断是否需要写入示例数据
-			let simpleValue = [{name: 'RUN', tag: 'EXERCISE', num: 2, unit: 'km', cycle: 0, perc: 0, color: '#f07c82', finish: [0,0,0,0,0,0,0]}, 
-					{name: 'READ', tag: 'STUDY', num: 10, unit: 'pages', cycle: 1, perc: 30, color: '#22a2c3', finish: [1,1,0,1,1,1,0]}, 
-					{name: 'SWIM', tag: 'ALL', num: 2, unit: 'times', cycle: 2, perc: 50, color: '#b3c936', finish: [1,1,1,1,0,0,0]}];
+			let simpleValue = [{name: 'RUN', tag: 'EXERCISE', num: 2, unit: 'km', cycle: 0, perc: 0, finished: 0, color: '#f07c82', finish: [0,0,0,0,0,0,0]}, 
+					{name: 'READ', tag: 'STUDY', num: 10, unit: 'pages', cycle: 1, perc: 30, finished: 3, color: '#22a2c3', finish: [1,1,0,1,1,1,0]}, 
+					{name: 'SWIM', tag: 'ALL', num: 2, unit: 'times', cycle: 2, perc: 50, finished: 1, color: '#b3c936', finish: [1,1,1,1,0,0,0]}];
 			if (needWrite) {
 				uni.setStorageSync('data', simpleValue);
+				console.log("WRITE SIMPLE DATA!")
 			}
 			
 			//将本地存储数据读入配置文件中
@@ -186,6 +187,17 @@
 			finishNumInput(e) {
 				this.finishItemNum = undefined;
 				this.finishItemNum = Number(e.target.value);
+			},
+			
+			finishCardComplete() {
+				this.itemList[this.finishCardNum].finished += this.finishItemNum;
+				this.itemList[this.finishCardNum].perc = this.itemList[this.finishCardNum].finished * 100 / this.itemList[this.finishCardNum].num;
+				if (this.itemList[this.finishCardNum].perc >= 100) {
+					this.itemList[this.finishCardNum].perc = 100;
+				}
+				this.itemList[this.finishCardNum].perc = this.itemList[this.finishCardNum].perc.toFixed(1);
+				this.$refs.popup.hide();
+				uni.setStorageSync('data', this.itemList);
 			},
 		}
 	}

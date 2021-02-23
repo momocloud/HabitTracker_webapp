@@ -120,7 +120,7 @@
 				
 				index:undefined,
 				itemList: [],
-				item: {name: undefined, tag: undefined, num: undefined, unit: undefined, cycle: undefined, perc: 0, color: undefined, finish: [0,0,0,0,0,0,0]},
+				item: {name: undefined, tag: undefined, num: undefined, unit: undefined, cycle: undefined, perc: 0, finished: 0, color: undefined, finish: [0,0,0,0,0,0,0]},
 			}
 		},
 		methods: {
