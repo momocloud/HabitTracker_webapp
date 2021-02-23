@@ -13,8 +13,8 @@
 		<!-- Goal -->
 		<view class="tintText">Goal :</view>		
 		<view class=itemBkg style="margin-top: 5%; display: flex;">
-			<input :placeholder="item.num" type="number" class="setIn" style="background-color: #ccedf4; width: 20%; border-radius: 27px; text-align: center; margin-left: 2%;" />
-			<input :placeholder="item.unit" type="text" class="setIn" style="background-color: #ccedf4; width: 25%; border-radius: 27px; text-align: center; margin-left: 5%;" />
+			<input :placeholder="item.num" type="number" class="setIn" style="background-color: #ccedf4; width: 20%; border-radius: 27px; text-align: center; margin-left: 2%;" @input="onNumInput"/>
+			<input :placeholder="item.unit" type="text" class="setIn" style="background-color: #ccedf4; width: 25%; border-radius: 27px; text-align: center; margin-left: 5%;" @input="onUnitInput"/>
 			<view class="setIn" style="margin-left: 5%;">per</view>
 			<view style="width: 25%; position: absolute; margin-left: 70%; padding-top: 7rpx;">
 				<xfl-select-white 
@@ -74,22 +74,22 @@
 		
 		<!-- Color -->
 		<view class="tintText">Color :</view>
-		<view style="background-color: white; height: 200rpx; ">
+		<view :style="'background-color:' + colorValue " style= "height: 200rpx; ">
 			<view style="display: flex;">
-				<view style="background-color: #ee3f4d;" class="colorBall"></view>
-				<view style="background-color: #f07c82;" class="colorBall"></view>
-				<view style="background-color: #c35691;" class="colorBall"></view>
-				<view style="background-color: #8076a3;" class="colorBall"></view>
-				<view style="background-color: #a7a8bd;" class="colorBall"></view>
-				<view style="background-color: #93b5cf;" class="colorBall"></view>
+				<view style="background-color: #ee3f4d;" class="colorBall"@click="colorValue='#ee3f4d'"></view>
+				<view style="background-color: #f07c82;" class="colorBall"@click="colorValue='#f07c82'"></view>
+				<view style="background-color: #c35691;" class="colorBall"@click="colorValue='#c35691'"></view>
+				<view style="background-color: #8076a3;" class="colorBall"@click="colorValue='#8076a3'"></view>
+				<view style="background-color: #a7a8bd;" class="colorBall"@click="colorValue='#a7a8bd'"></view>
+				<view style="background-color: #93b5cf;" class="colorBall"@click="colorValue='#93b5cf'"></view>
 			</view>
 			<view style="display: flex;">
-				<view style="background-color: #22a2c3;" class="colorBall"></view>
-				<view style="background-color: #2c9678;" class="colorBall"></view>
-				<view style="background-color: #bec936;" class="colorBall"></view>
-				<view style="background-color: #eed045;" class="colorBall"></view>
-				<view style="background-color: #ffa60f;" class="colorBall"></view>
-				<view style="background-color: #de7622;" class="colorBall"></view>
+				<view style="background-color: #22a2c3;" class="colorBall"@click="colorValue='#22a2c3'"></view>
+				<view style="background-color: #2c9678;" class="colorBall"@click="colorValue='#2c9678'"></view>
+				<view style="background-color: #bec936;" class="colorBall"@click="colorValue='#bec936'"></view>
+				<view style="background-color: #eed045;" class="colorBall"@click="colorValue='#eed045'"></view>
+				<view style="background-color: #ffa60f;" class="colorBall"@click="colorValue='#ffa60f'"></view>
+				<view style="background-color: #de7622;" class="colorBall"@click="colorValue='#de7622'"></view>
 			</view>
 		</view>
 		
@@ -105,12 +105,22 @@
 			return {
 				windowH: undefined,
 				nameValue: undefined,
-				unitList: ['day', 'week', 'month'],
-				remindTime: '00:00',
-				remindTimeList: ['day', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-				itemList: undefined,
-				item: undefined,
+				numValue: undefined,
+				unitValue: undefined,
+				cycleValue: undefined,
 				cycleType: 'day',
+				remindValue: false,
+				remindTime: '00:00',
+				remindType: 'day',
+				tagValue: undefined,
+				colorValue: '#fff',
+				
+				unitList: ['day', 'week', 'month'],
+				remindTimeList: ['day', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+				
+				index:undefined,
+				itemList: [],
+				item: {name: undefined, tag: undefined, num: undefined, unit: undefined, cycle: undefined, perc: 0, color: undefined, finish: [0,0,0,0,0,0,0]},
 			}
 		},
 		methods: {
@@ -125,6 +135,25 @@
 			
 			//完成
 			addFindsh() {
+				
+				switch (this.cycleType) {
+					case 'day': this.item.cycle = 0; break;
+					case 'week': this.item.cycle = 1; break;
+					case 'month': this.item.cycle = 2; break;
+					default: this.item.cycle = 0;
+				}
+
+				
+				this.item.name = this.nameValue;
+				this.item.tag = this.tagValue;
+				this.item.num = this.numValue;
+				this.item.unit = this.unitValue;
+				this.item.color = this.colorValue;
+				
+
+				this.itemList[this.index] = this.item;
+
+				uni.setStorageSync('data',this.itemList);
 				uni.navigateBack({
 					delta: 1,
 					animationType:'pop-out',
@@ -135,6 +164,23 @@
 			//键入名字时将数据保存到配置文件
 			onNameInput(e) {
 				this.nameValue = e.target.value;
+				console.log(this.nameValue);
+			},
+			onTagInput(e) {
+				this.tagValue = e.target.value;
+				console.log(e.target.value);
+			},
+			onNumInput(e){
+				this.numValue = e.target.value;
+				console.log(this.numValue)
+			},
+			onUnitInput(e){
+				this.unitValue = e.target.value;
+				console.log(this.unitValue)
+			},
+			onCycleInput(e){
+				this.cycleValue = e.target.value;
+				console.log(this.cycleValue);
 			},
 			
 			changeRe(e) {
@@ -148,13 +194,10 @@
 			clickChangeTime() {
 				this.$refs['date-time'].show();
 			},
-			
-			onTagInput(e) {
-				console.log(e.target.value);
-			},
-			
+
 			cycleChange(e) {
 				this.cycleType = e.newVal;
+				console.log(this.cycleType);
 			}
 			
 		},
@@ -165,6 +208,14 @@
 			this.windowH = uni.getSystemInfoSync().windowHeight;
 			this.itemList = uni.getStorageSync('data');
 			this.item = this.itemList[parm.id];
+			this.index = parm.id;
+			
+			this.nameValue = this.item.name;
+			this.tagValue = this.item.tag;
+			this.numValue = this.item.num;
+			this.unitValue = this.item.unit;
+			this.cycleValue = this.item.cycle;
+			this.colorValue = this.item.color;
 			this.cycleType = this.unitList[this.item.cycle];
 		},
 		
