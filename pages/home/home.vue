@@ -74,7 +74,7 @@
 				itemList: [],
 				finishCardNum: 0,
 				finishItemNum: 0,
-				todayData: undefined,
+				todayDate: undefined,
 			}
 		},
 		
@@ -83,7 +83,8 @@
 			this.windowH = uni.getSystemInfoSync().windowHeight;
 			
 			//获取今天日期
-			this.todayData = new Date();
+			this.todayDate = new Date();
+			// console.log(this.todayDate.toDateString())
 			
 			//判断存储数据是否合法
 			let needWrite = false;
@@ -100,9 +101,9 @@
 			}
 			
 			//根据存储数据是否合法判断是否需要写入示例数据
-			let simpleValue = [{name: 'RUN', tag: 'EXERCISE', num: 2, unit: 'km', cycle: 0, perc: 0, finished: 0, color: '#f07c82', finish: [0,0,0,0,0,0,0], createDate: new Date(this.todayData.getTime() - 5*24*60*60*1000)}, 
-					{name: 'READ', tag: 'STUDY', num: 10, unit: 'pages', cycle: 1, perc: 30, finished: 3, color: '#22a2c3', finish: [1,1,0,1,1,1,0], createDate: new Date(this.todayData.getTime() - 10*24*60*60*1000)}, 
-					{name: 'SWIM', tag: 'ALL', num: 2, unit: 'times', cycle: 2, perc: 50, finished: 1, color: '#b3c936', finish: [1,1,1,1,0,0,0], createDate: new Date(this.todayData.getTime() - 15*24*60*60*1000)}];
+			let simpleValue = [{name: 'RUN', tag: 'EXERCISE', num: 2, unit: 'km', cycle: 0, perc: 0, finished: 0, color: '#f07c82', finish: [0,0,0,0,0,0,0], createDate: new Date(this.todayDate.getTime() - 5*24*60*60*1000), cycleCounter: 50}, 
+					{name: 'READ', tag: 'STUDY', num: 10, unit: 'pages', cycle: 1, perc: 30, finished: 3, color: '#22a2c3', finish: [1,1,0,1,1,1,0], createDate: new Date(this.todayDate.getTime() - 10*24*60*60*1000), cycleCounter: 6}, 
+					{name: 'SWIM', tag: 'ALL', num: 2, unit: 'times', cycle: 2, perc: 50, finished: 1, color: '#b3c936', finish: [1,1,1,1,0,0,0], createDate: new Date(this.todayDate.getTime() - 15*24*60*60*1000), cycleCounter: 2}];
 			if (needWrite) {
 				uni.setStorageSync('data', simpleValue);
 				console.log("WRITE SIMPLE DATA!")
@@ -113,11 +114,18 @@
 			
 			//根据本地数据初始化tagList
 			this.tagList = [];
-			for ( let index = 0; index < this.itemList.length; index++) {
+			for (let index = 0; index < this.itemList.length; index++) {
 				if (!this.tagList.includes(this.itemList[index].tag)) {
 					this.tagList.push(this.itemList[index].tag);
 				}
 			}
+			
+			// 更新counter数据
+			for (let index = 0; index < this.itemList.length; index++) {
+				let dayGap = this.GetDateDiff(this.todayDate.getTime(), Date.parse(this.itemList[index].createDate));
+				console.log(dayGap)
+			}
+			
 		},
 		
 		onShow() {
@@ -160,7 +168,6 @@
 					}
 				}
 				
-
 				//如果不是ALL或者还有其它项目使用这个tag，就删除tagList中的这个tag
 				if (!judgeExist && deletedTag != 'ALL') {
 					for (let index = 0; index < this.tagList.length; index++) {
@@ -204,6 +211,12 @@
 				this.$refs.popup.hide();
 				uni.setStorageSync('data', this.itemList);
 			},
+		
+			GetDateDiff(startTime, endTime) {  
+			    let dates = parseInt((startTime-endTime)/(1000*60*60*24));
+			    return dates;    
+			}
+			
 		}
 	}
 </script>

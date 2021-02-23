@@ -120,7 +120,7 @@
 				remindTimeList: ['day', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
 				
 				itemList: [],
-				item: {name: undefined, tag: undefined, num: undefined, unit: undefined, cycle: undefined, perc: 0, finished: 0, color: undefined, finish: [0,0,0,0,0,0,0], createDate: new Date()},
+				item: {name: undefined, tag: undefined, num: undefined, unit: undefined, cycle: undefined, perc: 0, finished: 0, color: undefined, finish: [0,0,0,0,0,0,0], createDate: new Date(), cycleCounter: undefined},
 			}
 		},
 		methods: {
@@ -148,6 +148,7 @@
 						default: this.item.cycle = 0;
 					}
 					this.item.color = this.colorValue;
+					this.item.cycleCounter = this.cycleValue;
 					this.itemList.push(this.item);
 					uni.setStorageSync('data', this.itemList);
 				}

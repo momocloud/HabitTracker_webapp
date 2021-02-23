@@ -35,7 +35,7 @@
 		
 		<view class=itemBkg style="margin-top: 5%; display: flex;">
 			<view class="setIn" style="margin-left: 20%;">total</view>
-			<input placeholder="unlimited" type="number" class="setIn" style="background-color: #ccedf4; width: 30%; border-radius: 27px; text-align: center; margin-left: 2%;" />
+			<input :placeholder="item.cycleCounter" type="number" class="setIn" style="background-color: #ccedf4; width: 30%; border-radius: 27px; text-align: center; margin-left: 2%;" />
 			<view class="setIn" style="margin-left: 5%;">{{cycleType}}</view>
 		</view>
 
@@ -149,6 +149,7 @@
 				this.item.num = this.numValue;
 				this.item.unit = this.unitValue;
 				this.item.color = this.colorValue;
+				this.item.cycleCounter = this.cycleValue;
 				
 
 				this.itemList[this.index] = this.item;
@@ -214,7 +215,7 @@
 			this.tagValue = this.item.tag;
 			this.numValue = this.item.num;
 			this.unitValue = this.item.unit;
-			this.cycleValue = this.item.cycle;
+			this.cycleValue = this.item.cycleCounter;
 			this.colorValue = this.item.color;
 			this.cycleType = this.unitList[this.item.cycle];
 		},
