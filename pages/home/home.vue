@@ -68,6 +68,7 @@
 		data() {
 			return {
 				windowH: undefined,
+				lastMonday: undefined,
 				currentTag: 'ALL',
 				tagList: ['ALL'],
 				cycleList: ['day', 'week', 'month'],
@@ -84,14 +85,13 @@
 			
 			//获取今天日期
 			this.todayDate = new Date();
-			// console.log(this.todayDate.toDateString())
 			
 			//判断存储数据是否合法
 			let needWrite = false;
 			let dataSaved = uni.getStorageSync('data');
 			if (typeof(dataSaved[0]) != 'null' && typeof(dataSaved[0]) != 'undefined') {
 				for (let index = 0; index < dataSaved.length; index++) {
-					if (typeof(dataSaved[index].name) != 'string' || typeof(dataSaved[index].tag) != 'string' || typeof(dataSaved[index].num) != 'number' || typeof(dataSaved[index].unit) != 'string' || typeof(dataSaved[index].cycle) != 'number') {
+					if (typeof(dataSaved[index].name) != 'string') {
 						needWrite = true;
 						break;
 					}
@@ -101,14 +101,32 @@
 			}
 			
 			//根据存储数据是否合法判断是否需要写入示例数据
-			let simpleValue = [{name: 'RUN', tag: 'EXERCISE', num: 2, unit: 'km', cycle: 0, perc: 0, finished: 0, color: '#f07c82', finish: [0,0,0,0,0,0,0], createDate: new Date(this.todayDate.getTime() - 5*24*60*60*1000), cycleCounter: 50}, 
-					{name: 'READ', tag: 'STUDY', num: 10, unit: 'pages', cycle: 1, perc: 30, finished: 3, color: '#22a2c3', finish: [1,1,0,1,1,1,0], createDate: new Date(this.todayDate.getTime() - 10*24*60*60*1000), cycleCounter: 6}, 
-					{name: 'SWIM', tag: 'ALL', num: 2, unit: 'times', cycle: 2, perc: 50, finished: 1, color: '#b3c936', finish: [1,1,1,1,0,0,0], createDate: new Date(this.todayDate.getTime() - 15*24*60*60*1000), cycleCounter: 2}];
+			let simpleValue = [{name: 'VUE', tag: 'STUDY', num: 2, unit: 'hour', cycle: 0, perc: 0, finished: 0, color: '#f07c82', finish: [0,0,0,0,0,0,0], createDate: new Date(this.todayDate.getTime() - 10*24*60*60*1000), cycleCounter: 5, totalCycle: 7},
+					{name: 'RUN', tag: 'EXERCISE', num: 2, unit: 'km', cycle: 0, perc: 0, finished: 0, color: '#f07c82', finish: [0,0,0,0,0,0,0], createDate: new Date(this.todayDate.getTime() - 5*24*60*60*1000), cycleCounter: 1, totalCycle: 100}, 
+					{name: 'READ', tag: 'STUDY', num: 10, unit: 'pages', cycle: 1, perc: 30, finished: 3, color: '#22a2c3', finish: [1,1,0,1,1,1,0], createDate: new Date(this.todayDate.getTime() - 10*24*60*60*1000), cycleCounter: 1, totalCycle: 10}, 
+					{name: 'SWIM', tag: 'ALL', num: 2, unit: 'times', cycle: 2, perc: 50, finished: 1, color: '#b3c936', finish: [1,1,1,1,0,0,0], createDate: new Date(this.todayDate.getTime() - 15*24*60*60*1000), cycleCounter: 0,  totalCycle: 3}];
 			if (needWrite) {
 				uni.setStorageSync('data', simpleValue);
-				console.log("WRITE SIMPLE DATA!")
+				console.log("WRITE SIMPLE DATA!");
+				uni.setStorageSync('lastMonday', this.GetMonday());
+				console.log("WRITE THIS MONDAY!");
 			}
 			
+			//将本地存储数据读入配置文件中
+			this.itemList = uni.getStorageSync('data');
+			this.lastMonday = uni.getStorageSync('lastMonday');
+			
+			// 判断是否为新的一周,并决定是否重置report
+			if (this.GetDateDiff(this.todayDate.getTime(), Date.parse(this.lastMonday)) >= 7) {
+				for (let index = 0; index < this.itemList.length; index++) { this.itemList[index].finish = [0,0,0,0,0,0,0]; }
+				uni.setStorageSync('data', this.itemList);
+				uni.setStorageSync('lastMonday', this.GetMonday());
+				console.log("RESET REPORT!")
+			}
+			
+		},
+		
+		onShow() {			
 			//将本地存储数据读入配置文件中
 			this.itemList = uni.getStorageSync('data');
 			
@@ -120,17 +138,57 @@
 				}
 			}
 			
-			// 更新counter数据
+			// 更新counter, finished以及perc
 			for (let index = 0; index < this.itemList.length; index++) {
 				let dayGap = this.GetDateDiff(this.todayDate.getTime(), Date.parse(this.itemList[index].createDate));
-				console.log(dayGap)
+				console.log(this.itemList[index].name + ' dayGap: ' + dayGap)
+				switch (this.itemList[index].cycle) {
+					case 0: {
+						let newCounter = dayGap;
+						if (newCounter > this.itemList[index].cycleCounter) {
+							this.itemList[index].finished = 0;
+							this.itemList[index].cycleCounter = newCounter;
+							console.log(this.itemList[index].name + ' REFRESH! ')
+						}
+					}
+					case 1: {
+						let newCounter = dayGap;
+						if (parseInt(newCounter / 7) > this.itemList[index].cycleCounter) {
+							this.itemList[index].finished = 0;
+							this.itemList[index].cycleCounter = newCounter;
+							console.log(this.itemList[index].name + ' REFRESH! ')
+						}
+					}
+					case 2: {
+						let newCounter = dayGap;
+						if (parseInt(newCounter / 30) > this.itemList[index].cycleCounter) {
+							this.itemList[index].finished = 0;
+							this.itemList[index].cycleCounter = newCounter;
+							console.log(this.itemList[index].name + ' REFRESH! ')
+						}
+					}
+				}
+				
+				this.itemList[index].perc = this.itemList[index].finished * 100 / this.itemList[index].num;
+				if (this.itemList[index].perc >= 100) {
+					this.itemList[index].perc = 100;
+				}
+				this.itemList[index].perc = this.itemList[index].perc.toFixed(0);
 			}
 			
-		},
-		
-		onShow() {
-			//将本地存储数据读入配置文件中
-			this.itemList = uni.getStorageSync('data');
+			// 删除过期的项目
+			let toRemove = [];
+			for (let index = 0; index < this.itemList.length; index++) {
+				if (this.itemList[index].cycleCounter > this.itemList[index].totalCycle ) {
+					toRemove.push(index);
+				}
+			}
+			for (let index = 0; index < toRemove.length; index++) {
+				console.log(this.itemList[toRemove[index]].name + " REMOVE! ");
+				this.deleteCard(toRemove[index]);
+			}
+			
+			uni.setStorageSync('data', this.itemList);
 		},
 		
 		methods: {
@@ -150,14 +208,11 @@
 				})
 			},
 			
-			//按下删除时的动作
+			//执行删除时的动作
 			deleteCard(index) {
-				console.log('按下删除按钮');
-				
 				//将删除卡片的tag存储到临时变量，删除配置文件中itemList的数据
 				let deletedTag = this.itemList[index].tag;
 				this.itemList.splice(index, 1);
-				console.log(this.itemList.length)
 				
 				//判断配置文件中itemList的其他数据是否还有这个tag
 				let judgeExist = false;
@@ -191,11 +246,13 @@
 				})
 			},
 			
+			//按下tick图标的动作
 			finishCard(index) {
 				this.finishCardNum = index;
 				this.$refs.popup.show();
 			},
 			
+			// 完成界面内输入数字执行的动作
 			finishNumInput(e) {
 				this.finishItemNum = undefined;
 				this.finishItemNum = Number(e.target.value);
@@ -207,14 +264,30 @@
 				if (this.itemList[this.finishCardNum].perc >= 100) {
 					this.itemList[this.finishCardNum].perc = 100;
 				}
-				this.itemList[this.finishCardNum].perc = this.itemList[this.finishCardNum].perc.toFixed(1);
+				this.itemList[this.finishCardNum].perc = this.itemList[this.finishCardNum].perc.toFixed(0);
+				let dayIndex = this.todayDate.getDay();
+				switch(dayIndex) {
+					case 0: this.itemList[this.finishCardNum].finish[6] = 1; break;
+					default: this.itemList[this.finishCardNum].finish[dayIndex-1] = 1; break;
+				}
 				this.$refs.popup.hide();
 				uni.setStorageSync('data', this.itemList);
 			},
 		
+			// util: 计算两个日期间隔
 			GetDateDiff(startTime, endTime) {  
+				// 用法例:  this.GetDateDiff(this.todayDate.getTime(), Date.parse(this.itemList[index].createDate))
 			    let dates = parseInt((startTime-endTime)/(1000*60*60*24));
 			    return dates;    
+			},
+			
+			// util: 获取本周一Date
+			GetMonday() {
+				let nowTime = this.todayDate.getTime() ; 
+				let day = this.todayDate.getDay();
+				let oneDayTime = 24*60*60*1000 ; 
+				let MondayTime = nowTime - (day-1)*oneDayTime ; 
+				return new Date(MondayTime);
 			}
 			
 		}

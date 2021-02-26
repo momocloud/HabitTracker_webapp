@@ -120,7 +120,7 @@
 				remindTimeList: ['day', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
 				
 				itemList: [],
-				item: {name: undefined, tag: undefined, num: undefined, unit: undefined, cycle: undefined, perc: 0, finished: 0, color: undefined, finish: [0,0,0,0,0,0,0], createDate: new Date(), cycleCounter: undefined},
+				item: {name: undefined, tag: undefined, num: undefined, unit: undefined, cycle: undefined, perc: 0, finished: 0, color: undefined, finish: [0,0,0,0,0,0,0], createDate: new Date(), cycleCounter: undefined, totalCycle: undefined},
 			}
 		},
 		methods: {
@@ -135,6 +135,10 @@
 			
 			//完成
 			addFindsh() {
+				if (this.cycleValue == undefined || this.cycleValue == '') {
+					this.cycleValue = 999;
+				}
+				
 				// 缺少合法性判断! 
 				if (this.numValue != undefined) {
 					this.item.name = this.nameValue;
@@ -148,7 +152,8 @@
 						default: this.item.cycle = 0;
 					}
 					this.item.color = this.colorValue;
-					this.item.cycleCounter = this.cycleValue;
+					this.item.totalCycle = this.cycleValue;
+					this.item.cycleCounter = 0;
 					this.itemList.push(this.item);
 					uni.setStorageSync('data', this.itemList);
 				}

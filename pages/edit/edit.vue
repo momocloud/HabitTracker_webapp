@@ -135,6 +135,9 @@
 			
 			//完成
 			addFindsh() {
+				if (this.cycleValue == '') {
+					this.cycleValue = 999;
+				}
 				
 				switch (this.cycleType) {
 					case 'day': this.item.cycle = 0; break;
@@ -149,7 +152,7 @@
 				this.item.num = this.numValue;
 				this.item.unit = this.unitValue;
 				this.item.color = this.colorValue;
-				this.item.cycleCounter = this.cycleValue;
+				this.item.totalCycle = this.cycleValue;
 				
 
 				this.itemList[this.index] = this.item;
