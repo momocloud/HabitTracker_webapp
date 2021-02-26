@@ -1,4 +1,4 @@
-# ID2216 Assignment - Habit Tracker (Web App)
+# ID2216 Project - Habit Tracker (Web App)
 
 A Web App based on uni-app. 
 
